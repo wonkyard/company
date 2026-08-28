@@ -1,0 +1,45 @@
+# --- OS / cloud-sync / editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+*.swp
+
+# --- logs / temp ---
+*.log
+tmp/
+.tmp/
+
+# --- secrets (never commit) ---
+.env
+.env.*
+*.pem
+*.key
+secrets.json
+**/credentials.json
+
+# --- Claude Code local settings (per machine) ---
+.claude/settings.local.json
+
+# --- build output (under projects/) ---
+**/node_modules/
+**/__pycache__/
+*.pyc
+**/.venv/
+**/venv/
+**/dist/
+**/build/
+
+# --- operational / competitively-sensitive data — kept LOCAL ONLY, never published ---
+# The repo is public. The live DB and the per-idea reports carry pricing, margins,
+# market research, and machine paths. Only the schema and templates are tracked.
+/state/company.db
+/state/company.db-journal
+/state/company.db-wal
+/state/company.db-shm
+/reports/
+
+# --- split-out project source (this repo keeps no product source) ---
+projects/IDEA-20260827-1524/
+projects/IDEA-20260827-1533/
+projects/TOOL-20260828-1008/
