@@ -98,12 +98,12 @@ repo keeps no project source code.
 The **local working copy** of each split repo lives outside the company repo (so build output
 doesn't get synced by cloud file-sync) at `~/projects/wonkyard/<slug>`. The absolute path is
 stored in `projects.local_path`. Any agent that needs a project's actual code
-(`portfolio-manager`, and the per-repo agents it spawns) reads `local_path` and `cd`s there.
-On a fresh machine, `git clone` the `repo_url` to that path and set `local_path`.
+(`repo-team-runner`, `portfolio-manager`) reads `local_path` and `cd`s there. On a fresh
+machine, `git clone` the `repo_url` to that path and set `local_path`.
 
-You do not call those per-repo agents directly. To reach them, go through `portfolio-manager`,
-which spawns a scoped headless session inside that repo's working copy so it runs its own
-local agents.
+You do not call those per-repo agents directly. For a **build or fix** in a split repo, call
+`repo-team-runner` (see "All work on a split repo goes through its own team" below). For a
+**portfolio survey / daily roll-up** across all repos, call `portfolio-manager`.
 
 ### All work on a split repo goes through its own team (never build it here)
 
@@ -113,11 +113,17 @@ project-named agent, etc.) to build it inside the company session. That leaves t
 team idle and puts the work in the wrong place. Instead:
 
 1. **Design.** The Chief of Staff writes or updates the spec — the version milestones in the
-   project's brief, or a spec doc under `reports/<project_id>/`. No code changes here.
-2. **Build.** `portfolio-manager` runs the repo's own `project-lead` → `project-eng` → local
-   `release-check` in a headless session inside `projects.local_path`.
-3. **Report.** The repo team reports its result back to the company (`project_reports` / a
-   `reports/<project_id>/` summary).
+   project's brief, or a spec doc / FAIL brief under `reports/<project_id>/`. No code changes here.
+2. **Build.** The Chief of Staff calls `repo-team-runner` with the `project_id`, the spec path,
+   the build-round number, and the work-branch name. It goes into `projects.local_path`, follows
+   that repo's own `project-lead` → `project-eng` → `release-check` roles in-process, commits on
+   the work branch only, and never merges to `main` or pushes. (This replaced the old
+   "`portfolio-manager` spawns a nested headless `claude`" mechanism — nested sessions are
+   expensive and get blocked by the sandbox; the in-process runner does the same job. The
+   company/repo separation is unchanged: company designs + reviews, the runner builds inside
+   the repo, the company session never edits project source directly.)
+3. **Report.** `repo-team-runner` writes `reports/<project_id>/repo-build-round<N>.md` and
+   returns a one-line headline (fix chosen, test result, branch@sha, self-release-check verdict).
 4. **결재 / Gate.** The Chief of Staff reviews the output and decides PASS or FAIL.
    - **PASS** → one-line report to the Founder.
    - **FAIL** → the Chief of Staff writes up specifically what is wrong and what to fix, and
