@@ -162,6 +162,21 @@ lives here, not in the prompt.
   ticker; Marketplace-publish prep (scrub `TOOL-*` id + Founder email from `.claude/**` and
   git history — currently acceptable only because the repo is private); tighten the `Agent`
   tool's event summary to show only the subagent description, not the full prompt.
+- **v1.0.1** (next — bugfix) — **stale "working" agents in the office view.** When a company
+  session ends without writing an `idle` row to `state/company.db` `status_log`, that
+  department's last-known state stays `working` forever and the office keeps showing it at its
+  desk (seen 2026-08-29: `research` + `portfolio-manager` stuck `working` from a session two
+  days earlier). Fix in the DB/board render path (`webview/js/` — wherever `status_log` becomes
+  per-department state): apply a **staleness horizon** — a `working` row older than a
+  configurable cutoff (default ~3h, `agentyard.staleWorkingHours`) renders as idle, same idea
+  as the run feed's zombie horizon. Pure render-side; do not mutate the DB. Keep the live
+  hook-based state machine (`live.js`) untouched — this only affects the optional company.db
+  board layer. sanity: a fixture with an old `working` row and no matching `idle` renders idle;
+  a recent one still renders working; cutoff is config-driven. Also folds in a small
+  Run-view terminal UX add: **Ctrl+Shift+Enter** (Cmd+Shift+Enter on macOS) inserts a soft
+  `\n` into the input line instead of submitting. Full delta spec:
+  `reports/TOOL-20260828-1008/v1.0.1-stale-working.md`. Built on branch
+  `v1.0.1-stale-working` via `repo-team-runner`.
 
 ## Iteration protocol (keep token use lean)
 
