@@ -7,6 +7,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 ## 2026-08-29
 
 ### Added
+- **`creative` department.** In-house naming + light brand-identity studio. Called on demand
+  (not through the pipeline) whenever something needs a name — product, SNS handle, feature,
+  repo slug, blog series. Takes a brief (what it is / audience / where the name lives /
+  must-haves), returns name candidates grouped by 3–5 distinct vibes with rationale, a pick per
+  vibe, and one overall recommendation; WebSearch collision-checks each finalist and respects
+  the no-third-party-names house rule. Model: `sonnet`.
 - **`research-desk` department.** The editorial desk for a new content line
   (`IDEA-20260829-1822`): curate recent HCI research (CHI/UIST/CSCW/DIS, arXiv cs.HC) into
   general-public "news cards" under the positioning *"the research backstory behind the AI
