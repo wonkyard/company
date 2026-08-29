@@ -4,6 +4,19 @@ All notable additions to the WONKYARD org structure are logged here — think of
 
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## 2026-08-29
+
+### Added
+- **`research-desk` department.** The editorial desk for a new content line
+  (`IDEA-20260829-1822`): curate recent HCI research (CHI/UIST/CSCW/DIS, arXiv cs.HC) into
+  general-public "news cards" under the positioning *"the research backstory behind the AI
+  news."* Cleared Gate 1 (PROCEED) and Gate 2 (BUILD — scoped as "run the 3-week instrumented
+  concierge experiment," no software build). The desk does the daily one-paper pick and the
+  weekly metrics rollup against the kill/pivot thresholds; the Founder reads the paper (ACM DL
+  access) and produces the card in Claude Design. Picks are logged to an append-only ledger and
+  archived by `cards/<YYYY>/<MM>/`. Model: `sonnet` (curation + audience judgment). A real
+  automation build is gated behind month-2–3 growth thresholds.
+
 ## 2026-08-28
 
 ### Added
