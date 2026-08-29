@@ -50,6 +50,18 @@ repo**, the company session never edits project source directly.
    sqlite3 "$DB" "INSERT INTO status_log (project_id, department, status, note, ts) VALUES ('<project_id>', 'repo-team-runner', 'working', 'round <N>: <one line>', datetime('now'));" 2>/dev/null || true
    ```
 
+3a. **Announce the build to the Agentyard office.** Right after `cd`-ing into the
+   working copy, and again at each role handoff, `echo` a one-line marker so
+   Agentyard's office view can light this project's annex (its `cwd` as seen by
+   the Claude Code hook stays at the company root, so the office can't infer the
+   target on its own):
+   ```bash
+   echo "[agentyard] build <project_id>"                 # once, at the start
+   echo "[agentyard] project-lead -> project-eng"        # at each handoff
+   echo "[agentyard] project-eng -> release-check"
+   ```
+   Best-effort and cosmetic — never let it interrupt the build.
+
 4. **project-lead pass.** Turn the spec/brief into a concrete `now` item: scope,
    out-of-scope, and an explicit "Done when". Write it to the repo's
    `reports/backlog.md` in that repo's format. Keep it to exactly what the brief
