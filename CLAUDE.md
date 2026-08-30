@@ -142,6 +142,34 @@ summary into `project_reports`. Then report one line per repo to the Founder:
 sqlite3 -header -column state/company.db "SELECT project_id, summary FROM project_reports WHERE report_date = '<date>' ORDER BY project_id;"
 ```
 
+## End of Day (퇴근)
+
+When the Founder says **"퇴근"**, **"오늘 마무리(하자)"**, **"call it a day"**, or **"오늘 여기까지"**,
+close out the day before replying:
+
+1. Run the recap generator:
+   ```bash
+   node scripts/eod.mjs          # today; add --date YYYY-MM-DD to backfill
+   ```
+   It writes `reports/daily/<YYYY-MM-DD>.md` from `state/company.db` (gate
+   decisions, stage changes, department activity, per-repo roll-ups), the day's
+   company-repo commits, and the report files touched that day. Re-running only
+   refreshes the block between the `AUTO:BEGIN` / `AUTO:END` markers — the
+   narrative you write by hand is kept.
+   - `sqlite3` must be resolvable. If it is not on `PATH`, set `SQLITE3` to its
+     full path (e.g. `SQLITE3="$HOME/anaconda3/Library/bin/sqlite3.exe"`). The
+     git and filesystem sections still work without it.
+2. Fill in the four narrative sections in that file: **What actually happened**
+   (2–5 plain-language lines), **Open threads**, **Blocked on Founder** (the exact
+   unblock step for each), **Tomorrow — priority order**. This file is the
+   handoff the next session reads first, so it replaces the old ad-hoc
+   `reports/PLAN-*.md` / `CHECKPOINT.md` notes.
+3. Give the Founder a short spoken recap: what moved today, what is blocked on
+   them, and the top 2–3 items queued for tomorrow.
+
+`reports/daily/` is under the gitignored `reports/` tree — it stays local, like
+`company.db`, because it carries gate decisions and machine paths.
+
 ## Reporting to the Founder
 
 At the end of each stage, report briefly in this format. Do not paste the full report.
