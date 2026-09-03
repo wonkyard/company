@@ -86,6 +86,12 @@ sqlite3 state/company.db "UPDATE projects SET current_stage='<next stage>', upda
 - Report format follows the spec in each subagent's definition file (`.claude/agents/*.md`).
 - Gate decisions (PROCEED/KILL/BUILD/PIVOT/PASS/FAIL) must be stated under a `## Verdict` or `## Decision` heading at the end of the report. You parse only this section to decide the next step.
 - Actual code goes under `projects/<project_id>/` (owned by `engineering`).
+- **Always hand subagents an absolute path for where to write output**, and after a
+  subagent returns, confirm the file is actually at that path. The company repo lives
+  under an OS-localized `Documents` folder (`~/OneDrive/문서/…`); OneDrive also creates
+  look-alike siblings (`文書`, `文档`, …) and subagents given a relative `reports/…`
+  path have silently written into those stray trees before. If a promised file is
+  missing, check `~/OneDrive/*/wonkyard/` for a wrong-script copy.
 
 ## Project Repos (after a project is split out)
 
