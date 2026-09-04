@@ -177,6 +177,26 @@ lives here, not in the prompt.
   `\n` into the input line instead of submitting. Full delta spec:
   `reports/TOOL-20260828-1008/v1.0.1-stale-working.md`. Built on branch
   `v1.0.1-stale-working` via `repo-team-runner`.
+- **v1.0.2** (done, on `main`) — first-run onboarding wizard, empty-roster guidance,
+  always-on Help, `claude` launch robustness (PATH augment + node-shebang), Diagnostics.
+- **v1.1** (next — multi-agent) — Agentyard stops being Claude-Code-only. A first-run
+  picker (`agentyard.agents`, default `["claude-code"]`) chooses Claude Code and/or
+  **Codex**. Codex becomes a first-class "coding-agent backend": its own CLI setting
+  (`agentyard.codexPath`), instructions file (`AGENTS.md`), Run-view embedded terminal
+  with a **Claude Code ⇄ Codex switcher** (one pty per backend, held in the extension
+  host), and best-effort office-scene live rooms by tailing
+  `~/.codex/sessions/**/rollout-*.jsonl` (no install, no settings edit). New
+  `Agentyard: Set Up Agent Guidelines` command scaffolds a generic bundled `AGENTS.md`
+  and — treating `AGENTS.md` as canonical — keeps `CLAUDE.md` in sync as a thin
+  `@AGENTS.md` pointer (never clobbers an existing `CLAUDE.md`; offers keep-separate /
+  append-import / make-pointer, each confirmed + backed up). Generality fix: the roster is
+  decoupled from `company.db` — a workspace with just `.claude/agents/` (or `~/.claude/agents/`,
+  or any live activity) is real-data mode, `company.db` only adds the board/annex layers.
+  Full delta spec: `reports/TOOL-20260828-1008/v1.1-multi-agent.md`. Built on branch
+  `v1.1-multi-agent` via `repo-team-runner`. Required scope A–D; office-scene Codex live (E)
+  and headless Codex (F) attempted, may defer to v1.2. Version bump → full `release-check`
+  before merge. Marketplace publish still blocked on the Founder adding the `VSCE_PAT` repo
+  secret (see `reports/TOOL-20260828-1008/marketplace-publish-runbook.md`).
 
 ## Iteration protocol (keep token use lean)
 
