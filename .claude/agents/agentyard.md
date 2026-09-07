@@ -197,6 +197,20 @@ lives here, not in the prompt.
   and headless Codex (F) attempted, may defer to v1.2. Version bump → full `release-check`
   before merge. Marketplace publish still blocked on the Founder adding the `VSCE_PAT` repo
   secret (see `reports/TOOL-20260828-1008/marketplace-publish-runbook.md`).
+- **v1.1.0** (done, on `main`, tag `v1.1.0`, Open VSX + GitHub Releases) — scope A–D landed:
+  `agentyard.agents` first-run picker (Claude Code and/or Codex), `agentyard.codexPath`, the
+  `BACKENDS` abstraction, per-backend embedded Run terminal + `Claude Code ⇄ Codex` switcher,
+  `Agentyard: Set Up Agent Guidelines` (`AGENTS.md`-canonical sync, 3 adopt choices, backups),
+  roster decoupled from `company.db`. E (office-scene Codex rooms) + F (headless Codex) deferred.
+- **v1.2** (next) — **Codex reaches the office + headless Codex + a visible sync control.**
+  E: wire the already-tested `shared/codexSessions.js` normaliser into a `CodexSessionLog`
+  tailer of `~/.codex/sessions/**/rollout-*.jsonl` and merge into `live.js`/`model.js` as
+  `source:'codex'` rooms (compound session key, additive — Claude-only scene must not move).
+  F: `codex exec … --json` in the NDJSON Run feed (`buildHeadlessCodexArgs` + pure
+  `shared/codexExec.js` parser, resume + Cancel). G: a persistent guideline-sync **chip/button**
+  in the panel header (the "동기화 버튼" the Founder asked for) — shows in-sync/diverged, click =
+  set up or "Sync now". Full delta spec: `reports/TOOL-20260828-1008/v1.2-codex-office.md`.
+  Built on branch `v1.2-codex-office` via `repo-team-runner`. Version bump → full `release-check`.
 
 ## Iteration protocol (keep token use lean)
 
