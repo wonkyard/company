@@ -211,6 +211,20 @@ lives here, not in the prompt.
   in the panel header (the "동기화 버튼" the Founder asked for) — shows in-sync/diverged, click =
   set up or "Sync now". Full delta spec: `reports/TOOL-20260828-1008/v1.2-codex-office.md`.
   Built on branch `v1.2-codex-office` via `repo-team-runner`. Version bump → full `release-check`.
+- **v1.2.0** (done, on `main`, tag `v1.2.0`) — E/F/G shipped: `CodexSessionLog` tailer →
+  `live-codex` office rooms (compound key, Claude-only scene byte-identical); headless
+  `codex exec --json` in the Run feed (`buildHeadlessCodexArgs` + pure `shared/codexExec.js`);
+  guideline-sync chip in the panel header (`in sync`/`diverged`, click = set up / "Sync now").
+  Fast-follow v1.2.1: verify `codex exec` arg order on a real codex CLI (+ `--` guard before
+  the prompt).
+- **v1.3** (next) — **per-backend model picker.** New `agentyard.claudeModel` /
+  `agentyard.codexModel` settings (both default `""` = CLI/config default, no enum — model
+  lists drift, Codex especially); all four arg builders in `shared/claudeArgs.js` append
+  `--model <value>` when set; a `model: <label> ▾` control in the Run header (quick-pick:
+  Claude = 5 stable aliases + Custom…; Codex = Default + Custom…) that writes the Global
+  setting; model shown in the run-feed header + the `live-codex` info card. Additive; empty
+  setting adds no flag. Full delta spec: `reports/TOOL-20260828-1008/v1.3-model-picker.md`.
+  Built on branch `v1.3-model-picker` via `repo-team-runner`. Version bump → full `release-check`.
 
 ## Iteration protocol (keep token use lean)
 
