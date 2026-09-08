@@ -50,17 +50,22 @@ repo**, the company session never edits project source directly.
    sqlite3 "$DB" "INSERT INTO status_log (project_id, department, status, note, ts) VALUES ('<project_id>', 'repo-team-runner', 'working', 'round <N>: <one line>', datetime('now'));" 2>/dev/null || true
    ```
 
-3a. **Announce the build to the Agentyard office.** Right after `cd`-ing into the
-   working copy, and again at each role handoff, `echo` a one-line marker so
-   Agentyard's office view can light this project's annex (its `cwd` as seen by
-   the Claude Code hook stays at the company root, so the office can't infer the
-   target on its own):
+3a. **Light the repo team's rooms in the Agentyard office.** The office view lights
+   a role's room from a fresh `status_log` row whose `department` is that role's
+   name. Because you run all three roles in one process, you must emit those rows
+   yourself as you enter and leave each phase — otherwise the project's rooms look
+   idle while the build is actually running. At the top of each of steps 4/5/6,
+   before doing the work:
    ```bash
-   echo "[agentyard] build <project_id>"                 # once, at the start
-   echo "[agentyard] project-lead -> project-eng"        # at each handoff
-   echo "[agentyard] project-eng -> release-check"
+   sqlite3 "$DB" "INSERT INTO status_log (project_id, department, status, note, ts) VALUES ('<project_id>', '<project-lead|project-eng|release-check>', 'working', 'round <N>: <one line>', datetime('now'));" 2>/dev/null || true
    ```
-   Best-effort and cosmetic — never let it interrupt the build.
+   and when that phase hands off to the next, flip it idle:
+   ```bash
+   sqlite3 "$DB" "INSERT INTO status_log (project_id, department, status, note, ts) VALUES ('<project_id>', '<that role>', 'idle', 'round <N>: <one-line result>', datetime('now'));" 2>/dev/null || true
+   ```
+   Keep the `repo-team-runner` start/idle rows from steps 3 and 8 as well — they are
+   the record the Chief of Staff reads. All of this is best-effort; a missing DB in a
+   standalone clone is not an error, and logging must never interrupt the build.
 
 4. **project-lead pass.** Turn the spec/brief into a concrete `now` item: scope,
    out-of-scope, and an explicit "Done when". Write it to the repo's
