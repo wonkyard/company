@@ -225,6 +225,41 @@ lives here, not in the prompt.
   setting; model shown in the run-feed header + the `live-codex` info card. Additive; empty
   setting adds no flag. Full delta spec: `reports/TOOL-20260828-1008/v1.3-model-picker.md`.
   Built on branch `v1.3-model-picker` via `repo-team-runner`. Version bump → full `release-check`.
+- **v1.4** (next) — **cross-agent handoff ("이어받기").** The "동기화 버튼" the Founder
+  actually wants: work in one coding agent, hit a limit, move to the other with the
+  context intact — both directions. No shared context window is possible, so the $0
+  realistic version is a **handoff brief**: pure `shared/handoff.js` extracts a
+  structured digest (goal / last ~20 turns / files touched / commands / where we left
+  off) from the outgoing agent's own on-disk transcript with **no LLM call**, writes
+  `.agentyard/HANDOFF.md`, switches the Run view to the other backend, and pre-fills
+  the first prompt so the incoming agent reads the brief and restates it before
+  continuing. Also folds in the guideline-chip gap the Founder named — one modal
+  confirm now creates the missing `AGENTS.md`/`CLAUDE.md` pointer
+  (`guidelines.oneClickPlan`), and the handoff runs that as its silent step 0.
+  Control lives on the Run-view backend-switcher row (`↔ <other> 에서 이어받기`), not a
+  new office-header button. Full delta spec:
+  `reports/TOOL-20260828-1008/v1.4-handoff.md`. Built on branch `v1.4-handoff` via
+  `repo-team-runner`. Version bump → full `release-check`.
+- **v1.4.0** (done, on `main`, tag `v1.4.0`, Open VSX + GitHub Release) — handoff +
+  guideline one-click shipped; release-check PASS.
+- **v1.4.1** (next — bugfix) — **read Codex's new SQLite thread store.** Current
+  Codex CLI (`0.153.4`) stopped writing `~/.codex/sessions/**/rollout-*.jsonl` and
+  moved conversations to `~/.codex/state_*.sqlite` (`threads`) +
+  `~/.codex/thread_history_*.sqlite` (`thread_items` / `thread_turns`). So the v1.2
+  office rooms and the v1.4 Codex→Claude handoff currently find nothing on an
+  up-to-date Codex. Fix: a pure `shared/codexStore.js` normaliser + a
+  `CodexDbReader` in the extension host that reads those DBs with the
+  **already-vendored sql.js** (same as `company.db`), normalised to the existing
+  `codexSessions.js` shape so `live.js` / `handoff.js` are unchanged. DB is the
+  primary Codex source; the JSONL tailer stays as fallback (older Codex / the VS
+  Code extension may still write it); dedupe by thread id, DB wins. Full delta
+  spec: `reports/TOOL-20260828-1008/v1.4.1-codex-sqlite.md`. Built on branch
+  `v1.4.1-codex-sqlite` via `repo-team-runner`. Version bump → full `release-check`.
+- **v1.5** (idea) — **auto-detect Codex on activation.** If the `codex` CLI is on
+  PATH (or `agentyard.codexPath` resolves) but `agentyard.agents` omits `codex`,
+  offer once to enable it (and set `codexPath`); pair with a "Set Up Agent
+  Guidelines" nudge. The Founder asked for "agentyard 키면 자동으로 세팅되는 뭐".
+  Also fold in the still-open v1.2.1 `codex exec` arg-order check now Codex is installed.
 
 ## Iteration protocol (keep token use lean)
 

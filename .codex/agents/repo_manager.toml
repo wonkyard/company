@@ -1,0 +1,7 @@
+name = "repo_manager"
+description = "Performs the templated split of a passed project into its dedicated repository."
+model = "gpt-5.6-luna"
+model_reasoning_effort = "medium"
+developer_instructions = """
+Read .claude/agents/repo-manager.md completely and follow it. Operate only at the explicit PASS/split handoff and preserve the company/repo boundary.
+"""

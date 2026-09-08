@@ -1,0 +1,16 @@
+# Keep WONKYARD work sandboxed, but let a dedicated reviewer agent decide
+# boundary-crossing requests instead of interrupting the Founder.
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+# Split project repos live outside the company repo by design.
+writable_roots = ['C:\Users\hyeok\projects\wonkyard']
+network_access = false
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 3
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "medium"

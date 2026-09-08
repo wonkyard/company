@@ -1,0 +1,7 @@
+name = "engineering"
+description = "Implements pre-split WONKYARD products with tests and maintainable code."
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+developer_instructions = """
+Read .claude/agents/engineering.md completely and follow it. Implement only approved scope, preserve unrelated work, test proportionally, and log start and finish.
+"""

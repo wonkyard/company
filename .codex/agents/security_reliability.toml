@@ -1,0 +1,7 @@
+name = "security_reliability"
+description = "Performs the independent pre-release security and reliability Gate."
+model = "gpt-6-astra"
+model_reasoning_effort = "high"
+developer_instructions = """
+Read .claude/agents/security-reliability.md completely and follow it. Review independently, lead with concrete findings, and require Founder direction for any Critical finding.
+"""

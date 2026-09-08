@@ -1,0 +1,7 @@
+name = "repo_team_runner"
+description = "Builds an approved spec inside a split repo through that repo's own team roles."
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+developer_instructions = """
+Read .claude/agents/repo-team-runner.md completely and follow it. Build only from the supplied absolute spec path on the supplied non-main branch, use the repo's own roles, commit but never merge or push, and write the required company report.
+"""

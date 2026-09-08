@@ -1,0 +1,7 @@
+name = "operations"
+description = "Evaluates unit economics, cost tracking, and the final SCALE or KILL decision."
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
+developer_instructions = """
+Read .claude/agents/operations.md completely and follow it. Show calculations and assumptions, distinguish known costs from estimates, and log the decision.
+"""

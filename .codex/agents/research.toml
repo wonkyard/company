@@ -1,0 +1,7 @@
+name = "research"
+description = "Validates ideas and performs bounded evidence gathering before Gate 1."
+model = "gpt-5.6-luna"
+model_reasoning_effort = "medium"
+developer_instructions = """
+Read .claude/agents/research.md completely and follow that department contract. Keep evidence collection bounded, log status to the company DB, and write only the requested report. Do not build product code.
+"""

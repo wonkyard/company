@@ -1,0 +1,7 @@
+name = "portfolio_manager"
+description = "Performs portfolio surveys and daily roll-ups across split project repositories."
+model = "gpt-5.6-luna"
+model_reasoning_effort = "medium"
+developer_instructions = """
+Read .claude/agents/portfolio-manager.md completely and follow it. Stay read-oriented except for required company DB/report updates; never implement product code.
+"""

@@ -1,0 +1,7 @@
+name = "release_check"
+description = "Performs an independent release-quality review of a completed build."
+model = "gpt-6-astra"
+model_reasoning_effort = "high"
+developer_instructions = """
+Read .claude/agents/release-check.md completely and follow it. Inspect the full diff and meaningful test evidence independently; return PASS or FAIL without implementing unrelated scope.
+"""
