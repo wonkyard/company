@@ -242,7 +242,11 @@ lives here, not in the prompt.
   `repo-team-runner`. Version bump → full `release-check`.
 - **v1.4.0** (done, on `main`, tag `v1.4.0`, Open VSX + GitHub Release) — handoff +
   guideline one-click shipped; release-check PASS.
-- **v1.4.1** (next — bugfix) — **read Codex's new SQLite thread store.** Current
+- **v1.4.1** (done, on `main`, tag `v1.4.1`, Open VSX + GitHub Release) — Codex
+  SQLite thread-store reader shipped; company release-check PASS (452 sanity checks,
+  read-only DB access, no scope creep). Report:
+  `reports/TOOL-20260828-1008/v1.4.1-release-check.md`.
+  Original bugfix spec — **read Codex's new SQLite thread store.** Current
   Codex CLI (`0.153.4`) stopped writing `~/.codex/sessions/**/rollout-*.jsonl` and
   moved conversations to `~/.codex/state_*.sqlite` (`threads`) +
   `~/.codex/thread_history_*.sqlite` (`thread_items` / `thread_turns`). So the v1.2
@@ -255,11 +259,18 @@ lives here, not in the prompt.
   Code extension may still write it); dedupe by thread id, DB wins. Full delta
   spec: `reports/TOOL-20260828-1008/v1.4.1-codex-sqlite.md`. Built on branch
   `v1.4.1-codex-sqlite` via `repo-team-runner`. Version bump → full `release-check`.
-- **v1.5** (idea) — **auto-detect Codex on activation.** If the `codex` CLI is on
-  PATH (or `agentyard.codexPath` resolves) but `agentyard.agents` omits `codex`,
-  offer once to enable it (and set `codexPath`); pair with a "Set Up Agent
-  Guidelines" nudge. The Founder asked for "agentyard 키면 자동으로 세팅되는 뭐".
-  Also fold in the still-open v1.2.1 `codex exec` arg-order check now Codex is installed.
+- **v1.5** (in progress — build round 2/2 done, self release-check BLOCK) —
+  **live parent/subagent pixel view + Run-view dock + per-role model UI.** Real-time
+  pixel activity for agents *and* their subagents (nested relationships) on BOTH
+  Claude Code and Codex; collapsible Run-view options dock (top/bottom/left/right);
+  show the ACTUAL per-agent model in the UI; resumed-thread resolver fix;
+  parent-aware handoff. Spec: `reports/TOOL-20260828-1008/v1.5-live-agents-run-ux.md`.
+  Round reports: `v1.5-repo-build-round1.md`, `v1.5-repo-build-round2.md`. Committed
+  on branch `v1.5-live-agents-run-ux` (`038291e`). Automated sanity + package green;
+  **blocked on a real Extension Development Host smoke + live Claude/Codex parent-child
+  run** — Founder authorized an isolated (non-global-profile) GUI verification step.
+  Folds in the older v1.5 "auto-detect Codex on activation" idea and the open v1.2.1
+  `codex exec` arg-order check.
 
 ## Iteration protocol (keep token use lean)
 
